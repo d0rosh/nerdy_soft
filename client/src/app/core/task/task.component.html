@@ -1,0 +1,37 @@
+<div class="container">
+  <mat-form-field class="w-100">
+    <input matInput placeholder="New task" [(ngModel)]="task.name" />
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="saveTask()">
+    {{ task._id ? 'Edit' : 'Add' }}
+  </button>
+  <mat-selection-list #data>
+    <mat-list-item class="list" *ngFor="let task of dataTasks">
+      <div class="wrap">
+        <p class="name">{{ task.name }}</p>
+        <button mat-raised-button color="primary" (click)="editTask(task)">
+          Edit
+        </button>
+        <button mat-raised-button color="warn" (click)="deleteTask(task)">
+          Delete
+        </button>
+        <p class="share-input">
+          <input matInput type="text" #email />
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="shareEmail(task, email)"
+          >
+            Share
+          </button>
+        </p>
+        <ul>
+          <li *ngIf="task.emails?.length">
+            shared tasks with users
+          </li>
+          <li *ngFor="let email of task.emails">{{ email }}</li>
+        </ul>
+      </div>
+    </mat-list-item>
+  </mat-selection-list>
+</div>
